@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>springmvc测试</title>
+</head>
+<body>
+
+<form id="myForm">
+    <label>
+        <span>分类ID:</span>
+        <input type="number" name="cateId">
+    </label>
+    <label>
+        <span>分类名称:</span>
+        <input type="text" name="cateName">
+    </label>
+    <br><br>
+    <button type="button" id="submitBtnByMap">Map 方式接收, String 方式返回</button>
+    <button type="button" id="submitBtnByMap2">Map 方式接收, map 方式返回</button>
+    <br><br>
+    <button type="button" id="submitBtnByModel">Model 方式接收, String 方式返回</button>
+    <button type="button" id="submitBtnByModel2">Model 方式接收, model 方式返回</button>
+</form>
+
+</body>
+
+<script src="/js/jquery-2.1.1.min.js"></script>
+<script>
+    $(function() {
+        $("#submitBtnByMap").click(function () {
+            fSave("/category/save-by-map.do");
+        });
+
+        $("#submitBtnByMap2").click(function () {
+            fSave("/category/save-by-map-2.do");
+        });
+
+        $("#submitBtnByModel").click(function() {
+            fSave("/category/save-by-model.do");
+        });
+
+        $("#submitBtnByModel2").click(function() {
+            fSave("/category/save-by-model-2.do");
+        });
+    });
+
+    function fSave(url) {
+        var obj = {};
+        obj['cateId'] = $("input[name=cateId]").val();
+        obj['cateName'] = $("input[name=cateName]").val();
+
+        $.ajax({
+            url: url,
+            method: 'post',
+            contentType: 'application/json', // 这句不加出现415错误:Unsupported Media Type
+            data: JSON.stringify(obj), // 以json字符串方式传递
+            success: function(data) {
+                console.log(data);
+            },
+            error: function(data) {
+                console.log("error...");
+                console.log(data);
+            }
+        });
+    }
+</script>
+</html>
