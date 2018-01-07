@@ -21,6 +21,8 @@
     <br><br>
     <button type="button" id="submitBtnByModel">Model 方式接收, String 方式返回</button>
     <button type="button" id="submitBtnByModel2">Model 方式接收, model 方式返回</button>
+    <br><br>
+    <button type="button" id="submitBtnByRP">@RequestParam 方式接收, String 方式返回</button>
 </form>
 
 </body>
@@ -29,19 +31,23 @@
 <script>
     $(function() {
         $("#submitBtnByMap").click(function () {
-            fSave("/category/save-by-map.do");
+            fSave("/category/save-by-map.htm");
         });
 
         $("#submitBtnByMap2").click(function () {
-            fSave("/category/save-by-map-2.do");
+            fSave("/category/save-by-map-2.htm");
         });
 
         $("#submitBtnByModel").click(function() {
-            fSave("/category/save-by-model.do");
+            fSave("/category/save-by-model.htm");
         });
 
         $("#submitBtnByModel2").click(function() {
-            fSave("/category/save-by-model-2.do");
+            fSave("/category/save-by-model-2.htm");
+        });
+
+        $("#submitBtnByRP").click(function() {
+            fSave("/category/save.htm");
         });
     });
 
@@ -53,8 +59,9 @@
         $.ajax({
             url: url,
             method: 'post',
-            contentType: 'application/json', // 这句不加出现415错误:Unsupported Media Type
-            data: JSON.stringify(obj), // 以json字符串方式传递
+            // contentType: 'application/json', // 这句不加出现415错误:Unsupported Media Type
+            // data: JSON.stringify(obj), // 以json字符串方式传递
+            data: obj, // 以json字符串方式传递
             success: function(data) {
                 console.log(data);
             },

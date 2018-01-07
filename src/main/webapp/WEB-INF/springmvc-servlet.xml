@@ -8,9 +8,9 @@
         http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+    <!-- alternative choice for use @WebConfig,
+        which is Deprecated uses AnnotationMethodHandlerAdapter class as HandlerAdapter -->
     <!--<context:component-scan base-package="com.wlm.test.web" />-->
-
-    <!--<mvc:annotation-driven />-->
 
     <!-- view path -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">

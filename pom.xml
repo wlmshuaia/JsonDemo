@@ -9,7 +9,9 @@
   <url>http://maven.apache.org</url>
 
   <properties>
-    <org.springframework.version>4.1.1.RELEASE</org.springframework.version>
+    <spring.version>4.1.1.RELEASE</spring.version>
+    <!--<spring.version>3.1.4.RELEASE</spring.version>-->
+    <spring.orm.version>3.1.4.RELEASE</spring.orm.version>
     <jackson-core-version>2.6.1</jackson-core-version>
   </properties>
 
@@ -25,8 +27,22 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
-      <version>${org.springframework.version}</version>
+      <version>${spring.version}</version>
     </dependency>
+
+    <!-- for spring 3.x -->
+    <dependency>
+        <groupId>cglib</groupId>
+        <artifactId>cglib</artifactId>
+        <version>2.2.2</version>
+    </dependency>
+
+    <!-- Database dependency -->
+    <!--<dependency>-->
+      <!--<groupId>org.springframework</groupId>-->
+      <!--<artifactId>spring-orm</artifactId>-->
+      <!--<version>${spring.orm.version}</version>-->
+    <!--</dependency>-->
 
     <!--spring-json依赖(It's for spring 4.x) -->
     <dependency>
