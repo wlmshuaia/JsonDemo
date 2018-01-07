@@ -3,6 +3,7 @@ package com.wlm.test.springextend;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.stereotype.Component;
 import org.springframework.util.PathMatcher;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
@@ -16,7 +17,7 @@ import com.wlm.test.extend.WebMvcConfigurationSupportAdapter;
  *
  * @author wengliemiao
  */
-//@Component
+@Component
 public class RequestMappingHandlerMappingExtend implements BeanPostProcessor{
 
     @Autowired

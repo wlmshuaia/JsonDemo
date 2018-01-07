@@ -1,6 +1,7 @@
 # JsonDemo
 ## 功能
-SpringMVC 接受 json 对象的两种方式示例
+1. SpringMVC 接受 json 对象的两种方式示例
+2. 自定义实现 UrlPathHelper, AntPathMatcher(见 springextend 包)
 
 ## 使用技术
 1. maven : apache-maven-3.3.9
