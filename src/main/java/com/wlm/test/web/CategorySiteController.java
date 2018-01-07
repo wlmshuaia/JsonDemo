@@ -32,19 +32,19 @@ public class CategorySiteController {
         return cateId + ", " + cateName;
     }
 
-    @RequestMapping(value = "/save-by-model", method = RequestMethod.POST)
-    @ResponseBody
-    public String saveByModel(@RequestBody Category category) {
-        categoryService.save(category);
-        return category.toString();
-    }
-
-    @RequestMapping(value = "/save-by-model-2", method = RequestMethod.POST)
-    @ResponseBody
-    public Category saveByModel2(@RequestBody Category category) {
-        categoryService.save(category);
-        return category;
-    }
+//    @RequestMapping(value = "/save-by-map", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
+//    @ResponseBody
+//    public String saveByMap(@RequestBody Map<String, Object> valMap) {
+//        categoryService.save(valMap);
+//        return valMap.toString();
+//    }
+//
+//    @RequestMapping(value = "/save-by-map-2", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
+//    @ResponseBody
+//    public Map<String, Object> saveByMap2(@RequestBody Map<String, Object> valMap) {
+//        categoryService.save(valMap);
+//        return valMap;
+//    }
 
     @RequestMapping(value = "/save-by-map", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
     @ResponseBody
@@ -58,5 +58,19 @@ public class CategorySiteController {
     public Map<String, Object> saveByMap2(@RequestBody Map<String, Object> valMap) {
         categoryService.save(valMap);
         return valMap;
+    }
+
+    @RequestMapping(value = "/save-by-model", method = RequestMethod.POST)
+    @ResponseBody
+    public String saveByModel(@RequestBody Category category) {
+        categoryService.save(category);
+        return category.toString();
+    }
+
+    @RequestMapping(value = "/save-by-model-2", method = RequestMethod.POST)
+    @ResponseBody
+    public Category saveByModel2(@RequestBody Category category) {
+        categoryService.save(category);
+        return category;
     }
 }
