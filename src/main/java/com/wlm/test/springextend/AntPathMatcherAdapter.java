@@ -25,7 +25,7 @@ public class AntPathMatcherAdapter extends AntPathMatcher {
         if (!isMatch) {
             // 兼容未添加格式到 PathVariableService 中的数据
             if (pattern.endsWith(".*")) {
-                pattern = pattern.split("\\.\\*")[0];
+                pattern = pattern.substring(0, pattern.length() - 2);
             }
             isMatch = pattern.equals(path);
         }

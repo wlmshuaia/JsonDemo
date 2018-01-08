@@ -16,6 +16,9 @@ import com.wlm.test.springextend.service.PathVariableService;
 @Component
 public class UrlPathHelperAdapter extends UrlPathHelper {
 
+    /**
+     * 需要去除的 uri 路径后缀，不同后缀修改该值即可
+     */
     private static final String SUFFIX = ".htm";
 
     @Autowired
@@ -27,7 +30,7 @@ public class UrlPathHelperAdapter extends UrlPathHelper {
 
         // 去除请求路径后缀
         if (lookUpPath.contains(SUFFIX)) {
-            lookUpPath = lookUpPath.split("\\.")[0];
+            lookUpPath = lookUpPath.substring(0, lookUpPath.length() - SUFFIX.length());
         }
 
         // 转换 @PathVariable 格式路径，并保存参数值

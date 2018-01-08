@@ -2,6 +2,9 @@ package com.wlm.test.web;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -103,5 +106,18 @@ public class TestController {
         System.out.println(value);
         System.out.println(paramMap);
         return name + ": " + value;
+    }
+
+    @RequestMapping(value = "/exception-test")
+    @ResponseBody
+    public String exceptionTest(@RequestParam(value = "name", defaultValue = "") String name) {
+        int res = Integer.parseInt(name);
+        return "success: " + res;
+    }
+
+    @ExceptionHandler(Exception.class)
+    public String handlerException(HttpServletRequest request, HttpServletResponse response, Exception ex) {
+        System.out.println("handlerException...");
+        return "redirect:/error.do";
     }
 }
