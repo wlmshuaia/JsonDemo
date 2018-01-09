@@ -22,13 +22,6 @@ public class AntPathMatcherAdapter extends AntPathMatcher {
     @Override
     protected boolean doMatch(String pattern, String path, boolean fullMatch, Map<String, String> uriTemplateVariables) {
         boolean isMatch = super.doMatch(pattern, path, fullMatch, uriTemplateVariables);
-        if (!isMatch) {
-            // 兼容未添加格式到 PathVariableService 中的数据
-            if (pattern.endsWith(".*")) {
-                pattern = pattern.substring(0, pattern.length() - 2);
-            }
-            isMatch = pattern.equals(path);
-        }
 
         // 获取 @PathVariable 格式参数
         if (uriTemplateVariables != null) {
