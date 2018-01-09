@@ -4,8 +4,6 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.stereotype.Service;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
@@ -29,12 +27,7 @@ public class PathVariableService {
      */
     private static final Pattern PATH_VARI_PATTERN = Pattern.compile("\\{[^/]+?\\}");
 
-    private PathMatcher pathMatcher;
-
-    @PostConstruct
-    public void init (){
-        this.pathMatcher = new AntPathMatcher();
-    }
+    private static PathMatcher PATH_MATCHER = new AntPathMatcher();
 
     /**
      * 保存 {@link PathVariable} 数据，并返回转换后的 uri 路径
@@ -114,7 +107,7 @@ public class PathVariableService {
                 List<List<ParamInfo>> pathVariInfoList = PathVariableParamInfoEnum.getList(prefix);
 
                 // 去除前缀部分
-                String tmpPath = uriPath.split(prefix)[1];
+                String tmpPath = uriPath.substring(prefix.length(), uriPath.length());
                 String[] pathVariArr = tmpPath.split("/");
 
                 for (List<ParamInfo> paramInfoList : pathVariInfoList) {
@@ -161,10 +154,7 @@ public class PathVariableService {
 
         // 匹配到多个配置，则排序后取最优
         if (matchList.size() > 1) {
-            if (this.pathMatcher == null) {
-                this.pathMatcher = new AntPathMatcher();
-            }
-            Comparator<Map<String, Object>> patternComparator = new MatchMapComparator(this.pathMatcher.getPatternComparator(uriPath));
+            Comparator<Map<String, Object>> patternComparator = new MatchMapComparator(PATH_MATCHER.getPatternComparator(uriPath));
             matchList.sort(patternComparator);
 
             return matchList.get(0);
@@ -189,7 +179,6 @@ public class PathVariableService {
             return this.comparator.compare((String) o1.get("prefix"), (String) o2.get("prefix"));
         }
     }
-
 
     public static void main(String[] args) {
         String uriPath = "/test/path-test-2/m-aaa";
