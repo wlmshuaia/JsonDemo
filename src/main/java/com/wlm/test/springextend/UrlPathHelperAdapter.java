@@ -19,7 +19,7 @@ public class UrlPathHelperAdapter extends UrlPathHelper {
     /**
      * 需要去除的 uri 路径后缀，不同后缀修改该值即可
      */
-    private static final String SUFFIX = ".htm";
+    private static final String SUFFIX = ".do";
 
     @Autowired
     private PathVariableService pathVariableService;
