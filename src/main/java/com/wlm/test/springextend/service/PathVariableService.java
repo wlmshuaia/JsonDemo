@@ -4,10 +4,13 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Service;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.HandlerMapping;
 
 /**
  * {@link PathVariable} 数据处理 service 接口
@@ -36,7 +39,7 @@ public class PathVariableService {
      * @return 转换后的 uri 路径
      */
     @SuppressWarnings("unchecked")
-    public String convertPathVariable(String uriPath) {
+    public String convertPathVariable(String uriPath, HttpServletRequest request) {
         Map<String, Object> paramInfoMap = getParamInfoMap(uriPath);
         if (!paramInfoMap.isEmpty()) {
             String prefix = (String) paramInfoMap.get("prefix");
@@ -50,7 +53,9 @@ public class PathVariableService {
                     ParamInfo paramInfo = paramInfoList.get(i);
 
                     if (paramInfo.isPathVariable()) {
-                        URI_TEMPLATE_VARIABLES.put(paramInfo.getName(), pathVari);
+                        Map<String, String> uriTemplateVariables = new LinkedHashMap<>();
+                        uriTemplateVariables.put(paramInfo.getName(), pathVari);
+                        request.setAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE, uriTemplateVariables);
                         resUriPath.append("{").append(paramInfo.getName()).append("}/");
                     } else {
                         resUriPath.append(pathVari).append("/");
@@ -61,28 +66,6 @@ public class PathVariableService {
             }
         }
         return uriPath;
-    }
-
-    /**
-     * 获取保存的 @PathVariable 数据，如无则返回 ""
-     *
-     * @param uriPath uri 路径, {contextPath} 格式
-     * @return @PathVariable 数据
-     */
-    @SuppressWarnings("unchecked")
-    public Map<String, String> getUriTemplateVariables(String uriPath) {
-        Map<String, String> resMap = new HashMap<>();
-        Map<String, Object> paramInfoMap = getParamInfoMap(uriPath);
-        if (!paramInfoMap.isEmpty()) {
-            List<ParamInfo> paramInfoList = (List<ParamInfo>) paramInfoMap.get("paramInfoList");
-
-            for (ParamInfo paramInfo : paramInfoList) {
-                if (URI_TEMPLATE_VARIABLES.containsKey(paramInfo.getName())) {
-                    resMap.put(paramInfo.getName(), URI_TEMPLATE_VARIABLES.get(paramInfo.getName()));
-                }
-            }
-        }
-        return resMap;
     }
 
     /**

@@ -34,7 +34,7 @@ public class UrlPathHelperAdapter extends UrlPathHelper {
         }
 
         // 转换 @PathVariable 格式路径，并保存参数值
-        lookUpPath = pathVariableService.convertPathVariable(lookUpPath);
+        lookUpPath = pathVariableService.convertPathVariable(lookUpPath, request);
 
         return lookUpPath;
     }
